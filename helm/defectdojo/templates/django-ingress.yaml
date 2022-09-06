@@ -45,7 +45,7 @@ spec:
   - host: {{ .Values.host }}
     http:
       paths:
-        {{ - if .Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" - }}
+        {{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" -}}
         - pathType: Prefix
           {{- if .Values.django.ingress.path }}
           path: {{ .Values.django.ingress.path }}
