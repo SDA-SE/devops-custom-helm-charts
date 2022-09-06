@@ -53,7 +53,7 @@ helm repo index helm/.
 
 ```shell
 CHART_PACKAGE_NAME="defectdojo-${VERSION}.tgz"
-git add helm/index.yaml helm/${CHART_PACKAGE_NAME}
+git add helm/defectdojo helm/index.yaml helm/${CHART_PACKAGE_NAME}
 git commit -m "Update chart index"
 git push origin master
 ```
