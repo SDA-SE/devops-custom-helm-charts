@@ -16,5 +16,5 @@ helm repo index helm/.
 CHART_PACKAGE_NAME="defectdojo-0.1.0+$(git rev-parse --short HEAD).tgz"
 git add helm/index.yaml helm/${CHART_PACKAGE_NAME}
 git commit -m "Update chart index"
-git push origin main
+git push origin master
 ```
