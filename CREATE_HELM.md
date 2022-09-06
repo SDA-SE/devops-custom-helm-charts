@@ -1,7 +1,7 @@
 ## Helm Package
 
 ```shell
-helm package defectdojo --version "0.1.0+$(git rev-parse --short HEAD)" -d helm
+helm package helm/defectdojo --version "0.1.0+$(git rev-parse --short HEAD)" -d helm
 ```
 
 ## Update Index
