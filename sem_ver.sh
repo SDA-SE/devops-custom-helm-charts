@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+# based on https://www.henryschmale.org/2019/04/30/incr-semver.html
+
 
 IFS='.' read -ra ver <<< "$1"
 [[ "${#ver[@]}" -ne 3 ]] && echo "Invalid semver string" && exit 1

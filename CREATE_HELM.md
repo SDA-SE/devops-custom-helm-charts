@@ -7,6 +7,7 @@ brew install gh
 ## Helm Package
 
 ```shell
+git fetch
 thisTag="$(git describe --tags $(git rev-list --tags --max-count=1) --abbrev=0 2>/dev/null || echo "0.0.0" )"
 newTag="$(sh ./sem_ver.sh $thisTag release)"
 helm package helm/defectdojo --version "${newTag}" -d helm
