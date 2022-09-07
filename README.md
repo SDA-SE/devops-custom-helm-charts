@@ -34,26 +34,27 @@ cd ..
 ```shell
 git fetch
 thisTag="$(git describe --tags $(git rev-list --tags --max-count=1) --abbrev=0 2>/dev/null || echo "0.0.0" )"
-newTag="$(sh ./sem_ver.sh $thisTag release)"
+newTag="$(sh ./sem_ver.sh ${thisTag} release)"
 ```
 
 ## Helm Package
 
 ```shell
-helm package helm/defectdojo --version "${VERSION}" -d helm
+helm package helm/defectdojo --version "${VERSION}+SDA.${newTag}" -d helm
 ```
 
 ## Update Index
 
 ```shell
-helm repo index helm/.
+URL="https://github.com/SDA-SE/devops-custom-helm-charts/releases/download/${newTag}/"
+helm repo index helm/. --merge --url ${URL}
 ```
 
 ## Commit and Push
 
 ```shell
-CHART_PACKAGE_NAME="defectdojo-${VERSION}.tgz"
-git add helm/defectdojo helm/index.yaml helm/${CHART_PACKAGE_NAME}
+CHART_PACKAGE_NAME="defectdojo-${VERSION}+SDA.${newTag}.tgz"
+git add helm/defectdojo helm/index.yaml
 git commit -m "Update chart index"
 git push origin master
 ```
@@ -61,7 +62,8 @@ git push origin master
 ## Create Release
 
 ```shell
-echo "Create new tag $newTag (old: $thisTag)"
-gh release create "$newTag" --title "$newTag" --notes "This is the next release ($newTag)"
-gh release upload "$newTag" helm/${CHART_PACKAGE_NAME} --clobber
+echo "Create new tag ${newTag} (old: ${thisTag})"
+gh release create "${newTag}" --title "${newTag}" --notes "This is the next release (${newTag})"
+gh release upload "${newTag}" helm/${CHART_PACKAGE_NAME} --clobber
+rm helm/${CHART_PACKAGE_NAME}
 ```
